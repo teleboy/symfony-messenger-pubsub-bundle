@@ -1,5 +1,5 @@
 {
-    "name": "cedricziel/symfony-messenger-pubsub-bundle",
+    "name": "teleboy/symfony-messenger-pubsub-bundle",
     "description": "Symfony Messenger Bundle adding Google Cloud Pub/Sub support",
     "type": "symfony-bundle",
     "license": "MIT",
