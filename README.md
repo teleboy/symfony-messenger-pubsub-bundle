@@ -1,6 +1,6 @@
 # Google Cloud Pub/Sub bundle
 
-This bundle wires `cedricziel/messenger-pubsub` in a Symfony application.
+This bundle wires [`cedricziel/messenger-pubsub`](https://packagist.org/packages/cedricziel/messenger-pubsub) in a Symfony application.
 
 It enables working Pub/Sub messages through the CLI and via push to an HTTP endpoint.
 
