@@ -1,0 +1,5 @@
+include:
+  - project: 'teleboy/ci/ci-templates'
+    ref: 'master'
+    file:
+      - 'pipelines/bundle/bundle-pipeline.yml'

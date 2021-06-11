@@ -77,7 +77,7 @@ class PushController
         $pubSub = new PubSubClient($foundTransport->getConnection()->getClientConfig());
 
         $content = $request->getContent();
-        if ($content === '' || $content === null) {
+        if (empty($content)) {
             throw new BadRequestHttpException('No message present in request.');
         }
 
