@@ -2,10 +2,6 @@
 
 namespace CedricZiel\Symfony\Bundle\GoogleCloudPubSubMessenger\Controller;
 
-use CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\PushWorker;
-use CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\Transport\PubSubPushStamp;
-use CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\Transport\PubSubReceivedStamp;
-use CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\Transport\PubSubTransport;
 use Google\Cloud\PubSub\PubSubClient;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ServiceLocator;
@@ -20,58 +16,47 @@ use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
+use CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\PushWorker;
+use CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\Transport\PubSubPushStamp;
+use CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\Transport\PubSubReceivedStamp;
+use CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\Transport\PubSubTransport;
+
 /**
- * @final
  * @see ConsumeMessagesCommand
  */
 class PushController
 {
-    /**
-     * @var MessageBusInterface
-     */
-    private $bus;
+    private MessageBusInterface $bus;
 
-    /**
-     * @var EventDispatcherInterface|null
-     */
-    private $eventDispatcher;
+    private ?EventDispatcherInterface $eventDispatcher;
 
-    /**
-     * @var LoggerInterface|null
-     */
-    private $logger;
+    private ?LoggerInterface $logger;
 
-    /**
-     * @var SerializerInterface
-     */
-    private $serializer;
+    private SerializerInterface $serializer;
 
-    /**
-     * @var ServiceLocator
-     */
-    private $receiverLocator;
+    private ServiceLocator $receiverLocator;
 
     public function __construct(MessageBusInterface $bus, ServiceLocator $receiverLocator, SerializerInterface $serializer, EventDispatcherInterface $eventDispatcher = null, LoggerInterface $logger = null)
     {
-        $this->bus = $bus;
+        $this->bus             = $bus;
         $this->eventDispatcher = $eventDispatcher;
-        $this->logger = $logger;
+        $this->logger          = $logger;
         $this->receiverLocator = $receiverLocator;
-        $this->serializer = $serializer;
+        $this->serializer      = $serializer;
     }
 
-    public function __invoke(Request $request, $transport)
+    public function __invoke(Request $request, $transport): Response
     {
-        $serviceName = sprintf('messenger.transport.%s', $transport);
+        $serviceName = \sprintf('messenger.transport.%s', $transport);
         if (!$this->receiverLocator->has($serviceName)) {
-            throw new NotFoundHttpException(sprintf('No such transport "%s"', $transport));
+            throw new NotFoundHttpException(\sprintf('No such transport "%s"', $transport));
         }
 
         /** @var TransportInterface $foundTransport */
         $foundTransport = $this->receiverLocator->get($serviceName);
 
         if (!($foundTransport instanceof PubSubTransport)) {
-            throw new BadRequestHttpException(sprintf('"%s" is not a Pub/Sub transport', $transport));
+            throw new BadRequestHttpException(\sprintf('"%s" is not a Pub/Sub transport', $transport));
         }
 
         $pubSub = new PubSubClient($foundTransport->getConnection()->getClientConfig());
@@ -81,7 +66,7 @@ class PushController
             throw new BadRequestHttpException('No message present in request.');
         }
 
-        $rawMessage = json_decode($content, true);
+        $rawMessage = \json_decode($content, true);
         if ($rawMessage === null) {
             throw new BadRequestHttpException('Unable to deserialize message.');
         }

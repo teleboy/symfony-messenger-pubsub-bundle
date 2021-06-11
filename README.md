@@ -14,11 +14,11 @@ composer require cedricziel/symfony-messenger-pubsub-bundle
 
 Configure your Symfony Messenger by supplying a valid DSN using the `pubsub` scheme.
 
-```
+```dotenv
 MESSENGER_TRANSPORT_DSN=pubsub://my-google-cloud-project/my-pubsub-topic?subscription=my-subscription
 ```
 
-Activate the push routes:
+Receiving messages via push is disabled by default, to activate it, include the needed routes:
 
 ```yaml
 _pubsub_push:

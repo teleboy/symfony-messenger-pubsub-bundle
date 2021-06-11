@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    public: false
+    autoconfigure: true
+    autowire: true
+
+  CedricZiel\Symfony\Bundle\GoogleCloudPubSubMessenger\Controller\PushController:
+    arguments:
+      $receiverLocator: '@messenger.receiver_locator'
+    tags: ['controller.service_arguments']
+
+  CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\Transport\PubSubTransportFactory:
+    tags: ['messenger.transport_factory']
