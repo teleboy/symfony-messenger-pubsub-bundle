@@ -1,5 +1,8 @@
 # Google Cloud Pub/Sub bundle changelog
 
+## 0.4.1- 2021-06-11
+* Use same serializer as transport for decoding in `PushController` to prevent mismatch
+
 ## 0.4.0 - 2021-06-11
 * Use .yml for config
 * Autowire

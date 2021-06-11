@@ -32,17 +32,14 @@ class PushController
 
     private ?LoggerInterface $logger;
 
-    private SerializerInterface $serializer;
-
     private ServiceLocator $receiverLocator;
 
-    public function __construct(MessageBusInterface $bus, ServiceLocator $receiverLocator, SerializerInterface $serializer, EventDispatcherInterface $eventDispatcher = null, LoggerInterface $logger = null)
+    public function __construct(MessageBusInterface $bus, ServiceLocator $receiverLocator, EventDispatcherInterface $eventDispatcher = null, LoggerInterface $logger = null)
     {
         $this->bus             = $bus;
         $this->eventDispatcher = $eventDispatcher;
         $this->logger          = $logger;
         $this->receiverLocator = $receiverLocator;
-        $this->serializer      = $serializer;
     }
 
     public function __invoke(Request $request, $transport): Response
@@ -77,7 +74,7 @@ class PushController
         $attributes = $message->attributes();
 
         try {
-            $envelope = $this->serializer->decode([
+            $envelope = $foundTransport->getSerializer()->decode([
                 'body' => $body,
                 'headers' => $attributes,
             ]);
