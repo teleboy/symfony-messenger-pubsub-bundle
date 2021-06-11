@@ -15,7 +15,7 @@
         }
     },
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=7.4",
         "cedricziel/messenger-pubsub": "1.0.x-dev",
         "psr/log": "^1.0",
         "symfony/config": "^4.4|^5.0",

@@ -14,7 +14,7 @@ class PushControllerTest extends WebTestCase
 {
     protected static $class = AppKernel::class;
 
-    public function testWillThrowIfNoSuchTransport()
+    public function testWillThrowIfNoSuchTransport(): void
     {
         $client = self::createClient();
         $client->request(Request::METHOD_POST, '/_messenger/pubsub/nonexistent-transport');
@@ -22,7 +22,7 @@ class PushControllerTest extends WebTestCase
         self::assertSame(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
     }
 
-    public function testWillThrowIfTransportNotPubSub()
+    public function testWillThrowIfTransportNotPubSub(): void
     {
         $client = self::createClient();
         $client->request(Request::METHOD_POST, '/_messenger/pubsub/sync');
@@ -30,7 +30,7 @@ class PushControllerTest extends WebTestCase
         self::assertSame(Response::HTTP_BAD_REQUEST, $client->getResponse()->getStatusCode());
     }
 
-    public function testPushActionWithoutPayloadWillThrow()
+    public function testPushActionWithoutPayloadWillThrow(): void
     {
         $client = self::createClient();
         $client->request(Request::METHOD_POST, '/_messenger/pubsub/my-pubsub-transport');
@@ -41,7 +41,7 @@ class PushControllerTest extends WebTestCase
     /**
      * @dataProvider getMessages
      */
-    public function testPushAction($message)
+    public function testPushAction($message): void
     {
         $client = self::createClient();
         $server = ['HTTP_CONTENT_TYPE' => 'application/json', 'HTTP_ACCEPT' => 'application/json'];
@@ -50,7 +50,7 @@ class PushControllerTest extends WebTestCase
         self::assertSame(Response::HTTP_NO_CONTENT, $client->getResponse()->getStatusCode());
     }
 
-    public function getMessages()
+    public function getMessages(): array
     {
         $serializer = new PhpSerializer();
         $envelope = new Envelope(new DummyMessage('Yo'));
