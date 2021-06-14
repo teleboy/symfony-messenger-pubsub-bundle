@@ -16,7 +16,7 @@
     },
     "require": {
         "php": ">=7.4",
-        "teleboy/symfony-messenger-pubsub-bridge": "^0.2",
+        "teleboy/symfony-messenger-pubsub-bridge": "^0.3",
         "psr/log": "^1.0",
         "symfony/config": "^4.4|^5.0",
         "symfony/console": "^4.4|^5.3",

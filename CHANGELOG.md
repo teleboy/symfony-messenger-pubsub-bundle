@@ -1,6 +1,9 @@
 # Google Cloud Pub/Sub bundle changelog
 
-## 0.4.1- 2021-06-11
+## 0.4.2 - 2021-06-14
+* Require `teleboy/symfony-messenger-pubsub-bridge` `^0.3`
+
+## 0.4.1 - 2021-06-11
 * Use same serializer as transport for decoding in `PushController` to prevent mismatch
 
 ## 0.4.0 - 2021-06-11
