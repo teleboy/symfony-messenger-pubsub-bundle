@@ -9,6 +9,12 @@
             "email": "mail@cedric-ziel.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.teleboy.ch/"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "CedricZiel\\Symfony\\Bundle\\GoogleCloudPubSubMessenger\\": ""
