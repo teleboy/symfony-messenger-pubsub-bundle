@@ -1,5 +1,8 @@
 # Google Cloud Pub/Sub bundle changelog
 
+## 0.5.0 - 2021-07-08
+* Require `teleboy/symfony-messenger-pubsub-bridge` `^0.4`
+
 ## 0.4.2 - 2021-06-14
 * Require `teleboy/symfony-messenger-pubsub-bridge` `^0.3`
 
