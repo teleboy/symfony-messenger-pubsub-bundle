@@ -56,7 +56,7 @@ class PushController
             throw new BadRequestHttpException(\sprintf('"%s" is not a Pub/Sub transport', $transport));
         }
 
-        $pubSub = new PubSubClient($foundTransport->getConnection()->getClientConfig());
+        $pubSub = new PubSubClient($foundTransport->getClientConfig());
 
         $content = $request->getContent();
         if (empty($content)) {
