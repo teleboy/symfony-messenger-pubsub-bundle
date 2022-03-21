@@ -2,7 +2,7 @@
     "name": "teleboy/symfony-messenger-pubsub-bundle",
     "description": "Symfony Messenger Bundle adding Google Cloud Pub/Sub support",
     "type": "symfony-bundle",
-    "license": "MIT",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Cedric Ziel",
@@ -17,7 +17,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "CedricZiel\\Symfony\\Bundle\\GoogleCloudPubSubMessenger\\": ""
+            "CedricZiel\\Symfony\\Bundle\\GoogleCloudPubSubMessenger\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CedricZiel\\Symfony\\Bundle\\GoogleCloudPubSubMessenger\\Tests\\": "Tests"
         }
     },
     "require": {
@@ -40,18 +45,18 @@
         "symfony/phpunit-bridge": "^4.4 || ^5.0",
         "symfony/translation": "^5.3",
         "symfony/validator": "^5.3",
-        "symfony/yaml": "^4.4 || ^5.0"
+        "symfony/yaml": "^4.4 || ^5.0",
+        "teleboy/web.dev": "^6.0"
     },
     "scripts": {
-        "test": "@php vendor/bin/simple-phpunit",
-        "phpstan": "@php -d memory_limit=-1 vendor/phpstan/phpstan/phpstan analyse"
+        "test": "bin/phpunit --colors=auto",
+        "phpstan": "php -d memory_limit=-1 bin/phpstan analyse",
+        "phpstan-deprecations": "php -d memory_limit=-1 bin/phpstan analyse --configuration=phpstan.deprecations.neon",
+        "cs-review": "bin/php-cs-fixer fix --path-mode=override ./src ./Tests --config=vendor/teleboy/web.dev/.php-cs-fixer.dist.php --verbose --diff --dry-run",
+        "cs-fix": "bin/php-cs-fixer fix --path-mode=override ./src ./Tests --config=vendor/teleboy/web.dev/.php-cs-fixer.dist.php"
     },
     "config": {
+        "bin-dir": "bin",
         "sort-packages": true
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0.x-dev"
-        }
     }
 }

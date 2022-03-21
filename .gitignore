@@ -1,7 +1,12 @@
+/.idea
+
+/bin
 /vendor
 /composer.lock
-.phpunit.result.cache
-/var
 
-# PHP Storm
-/.idea
+/.phpunit.result.cache
+/.php_cs.cache
+
+# osx
+._.DS_Store
+.DS_Store

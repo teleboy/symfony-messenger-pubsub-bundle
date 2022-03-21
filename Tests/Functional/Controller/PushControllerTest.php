@@ -12,7 +12,10 @@ use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
 
 class PushControllerTest extends WebTestCase
 {
-    protected static $class = AppKernel::class;
+    protected static function getKernelClass(): string
+    {
+        return AppKernel::class;
+    }
 
     public function testWillThrowIfNoSuchTransport(): void
     {

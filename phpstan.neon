@@ -1,7 +1,9 @@
 parameters:
     level: 5
     paths:
-        - .
-    excludePaths:
-        analyse:
-            - vendor/*
+        - src
+        - Tests
+    treatPhpDocTypesAsCertain: false
+
+includes:
+    - vendor/teleboy/web.dev/extension.neon

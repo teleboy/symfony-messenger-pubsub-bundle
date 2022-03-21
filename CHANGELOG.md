@@ -1,5 +1,9 @@
 # Google Cloud Pub/Sub bundle changelog
 
+## 0.6.0 - 2022-03-21
+* Move code to [./src](./src) directory
+* Update `teleboy/web.dev` to `^6.0`
+
 ## 0.5.0 - 2021-07-08
 * Require `teleboy/symfony-messenger-pubsub-bridge` `^0.4`
 
