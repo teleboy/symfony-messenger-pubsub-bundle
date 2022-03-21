@@ -1,5 +1,4 @@
 <?php
-
 namespace CedricZiel\Symfony\Bundle\GoogleCloudPubSubMessenger\Tests\Fixtures;
 
 class DummyMessage

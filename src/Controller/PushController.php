@@ -1,7 +1,10 @@
 <?php
-
 namespace CedricZiel\Symfony\Bundle\GoogleCloudPubSubMessenger\Controller;
 
+use CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\PushWorker;
+use CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\Transport\PubSubPushStamp;
+use CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\Transport\PubSubReceivedStamp;
+use CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\Transport\PubSubTransport;
 use Google\Cloud\PubSub\PubSubClient;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ServiceLocator;
@@ -10,16 +13,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\Command\ConsumeMessagesCommand;
+
 use Symfony\Component\Messenger\Exception\MessageDecodingFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-
-use CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\PushWorker;
-use CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\Transport\PubSubPushStamp;
-use CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\Transport\PubSubReceivedStamp;
-use CedricZiel\Symfony\Messenger\Bridge\GcpPubSub\Transport\PubSubTransport;
 
 /**
  * @see ConsumeMessagesCommand
@@ -45,6 +43,7 @@ class PushController
     public function __invoke(Request $request, $transport): Response
     {
         $serviceName = \sprintf('messenger.transport.%s', $transport);
+
         if (!$this->receiverLocator->has($serviceName)) {
             throw new NotFoundHttpException(\sprintf('No such transport "%s"', $transport));
         }
@@ -59,27 +58,28 @@ class PushController
         $pubSub = new PubSubClient($foundTransport->getClientConfig());
 
         $content = $request->getContent();
+
         if (empty($content)) {
             throw new BadRequestHttpException('No message present in request.');
         }
 
         $rawMessage = \json_decode($content, true);
+
         if ($rawMessage === null) {
             throw new BadRequestHttpException('Unable to deserialize message.');
         }
 
         $message = $pubSub->consume($rawMessage);
 
-        $body = $message->data();
+        $body       = $message->data();
         $attributes = $message->attributes();
 
         try {
             $envelope = $foundTransport->getSerializer()->decode([
-                'body' => $body,
+                'body'    => $body,
                 'headers' => $attributes,
             ]);
         } catch (MessageDecodingFailedException $exception) {
-
             throw new BadRequestHttpException($exception->getMessage(), $exception);
         }
 

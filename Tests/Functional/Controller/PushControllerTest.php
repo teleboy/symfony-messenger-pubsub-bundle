@@ -1,5 +1,4 @@
 <?php
-
 namespace CedricZiel\Symfony\Bundle\GoogleCloudPubSubMessenger\Tests\Functional\Controller;
 
 use CedricZiel\Symfony\Bundle\GoogleCloudPubSubMessenger\Tests\App\AppKernel;
@@ -12,11 +11,6 @@ use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
 
 class PushControllerTest extends WebTestCase
 {
-    protected static function getKernelClass(): string
-    {
-        return AppKernel::class;
-    }
-
     public function testWillThrowIfNoSuchTransport(): void
     {
         $client = self::createClient();
@@ -43,6 +37,8 @@ class PushControllerTest extends WebTestCase
 
     /**
      * @dataProvider getMessages
+     *
+     * @param mixed $message
      */
     public function testPushAction($message): void
     {
@@ -56,7 +52,7 @@ class PushControllerTest extends WebTestCase
     public function getMessages(): array
     {
         $serializer = new PhpSerializer();
-        $envelope = new Envelope(new DummyMessage('Yo'));
+        $envelope   = new Envelope(new DummyMessage('Yo'));
 
         return [
             ['{
@@ -64,7 +60,7 @@ class PushControllerTest extends WebTestCase
                     "attributes": {
                         "key": "value"
                     },
-                    "data": "'. base64_encode($serializer->encode($envelope)['body']) .'",
+                    "data": "' . \base64_encode($serializer->encode($envelope)['body']) . '",
                     "messageId": "2070443601311540",
                     "message_id": "2070443601311540",
                     "publishTime": "2021-02-26T19:13:55.749Z",
@@ -73,5 +69,10 @@ class PushControllerTest extends WebTestCase
                "subscription": "projects/myproject/subscriptions/mysubscription"
             }']
         ];
+    }
+
+    protected static function getKernelClass(): string
+    {
+        return AppKernel::class;
     }
 }

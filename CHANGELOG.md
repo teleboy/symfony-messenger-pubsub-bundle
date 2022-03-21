@@ -1,5 +1,8 @@
 # Google Cloud Pub/Sub bundle changelog
 
+## 0.6.1 - 2022-03-21
+* Fix PHP CS errors
+
 ## 0.6.0 - 2022-03-21
 * Move code to [./src](./src) directory
 * Update `teleboy/web.dev` to `^6.0`
