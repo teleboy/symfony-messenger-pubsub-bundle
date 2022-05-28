@@ -39,14 +39,10 @@
         "symfony/serializer": "^4.4|^5.0"
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.12",
-        "phpunit/phpunit": "^9.5",
-        "symfony/browser-kit": "^4.4 || ^5.0",
-        "symfony/phpunit-bridge": "^4.4 || ^5.0",
         "symfony/translation": "^5.3",
         "symfony/validator": "^5.3",
         "symfony/yaml": "^4.4 || ^5.0",
-        "teleboy/web.dev": "^6.0"
+        "teleboy/web.dev": "^8.0"
     },
     "scripts": {
         "test": "bin/phpunit --colors=auto",
