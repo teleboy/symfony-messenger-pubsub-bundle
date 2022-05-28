@@ -67,7 +67,7 @@ class PushControllerTest extends WebTestCase
                     "publish_time": "2021-02-26T19:13:55.749Z"
                 },
                "subscription": "projects/myproject/subscriptions/mysubscription"
-            }']
+            }'],
         ];
     }
 

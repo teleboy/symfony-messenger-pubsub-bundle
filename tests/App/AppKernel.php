@@ -23,7 +23,7 @@ final class AppKernel extends Kernel
         ];
     }
 
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $this->parentRegisterContainerConfiguration($loader);
 

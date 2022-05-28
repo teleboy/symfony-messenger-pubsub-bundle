@@ -6,7 +6,7 @@ use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 class DummyMessageHandler implements MessageHandlerInterface
 {
-    public function __invoke(DummyMessage $message)
+    public function __invoke(DummyMessage $message): void
     {
         // do the work
     }
