@@ -49,7 +49,7 @@
         "phpstan": "php -d memory_limit=-1 bin/phpstan analyse",
         "phpstan-deprecations": "php -d memory_limit=-1 bin/phpstan analyse --configuration=phpstan.deprecations.neon",
         "cs-review": "bin/php-cs-fixer fix --path-mode=override ./src ./tests --config=vendor/teleboy/web.dev/.php-cs-fixer.dist.php --verbose --diff --dry-run",
-        "cs-fix": "bin/php-cs-fixer fix --path-mode=override ./src ./tests --config=vendor/teleboy/web.dev/.php-cs-fixer.dist.php"
+        "cs-fix": "bin/php-cs-fixer fix --using-cache=no --path-mode=override ./src ./tests --config=vendor/teleboy/web.dev/.php-cs-fixer.dist.php"
     },
     "config": {
         "bin-dir": "bin",
